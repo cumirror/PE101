@@ -1,0 +1,342 @@
+strings and blocks to be translated are indented
+translate below strings or blocks
+it's easier to translate blocks at once, line per line (each line is a different string)
+
+I review the visual of the final file, but the translator has full decision on text content.
+in particular, the translator decides whether official names like 'section tables' should be translated or not...
+
+have fun,
+
+Ange
+
+-------------------------------------------------------------------------------
+
+title
+    a windows executable walkthrough
+    windows可执行文件详解
+
+    translated by <your name>
+    译者 童进
+
+    download @
+
+block title
+    Dissected PE
+    PE文件剖析
+
+file blocks
+    header
+    头部
+    
+    technical details about the executable
+    可执行文件相关技术细节
+
+    sections
+    段
+
+    contents of the executable
+    可执行文件的内容
+
+    DOS header
+    DOS头部
+
+    shows it's a binary
+    二进制形式
+
+    PE header
+    PE头
+
+    shows it's a 'modern' binary
+    二进制形式
+
+    optional header
+    可选头部
+
+    executable information
+    可执行文件信息
+
+    data directories
+    数据目录
+
+    pointers to extra structures (exports, imports,...)
+    指向附加的结构(导出，导入)
+
+    sections table
+    段表
+
+    defines how the file is loaded in memory
+    定义文件如何加载到内存中
+
+    code
+    代码
+
+    what is executed
+    什么被执行
+
+    imports
+    导入
+
+    link between the executable and (Windows) libraries
+    连接可执行文件与Windows库
+
+    data
+    数据
+
+    information used by the code
+    代码所使用的信息
+
+big block headers
+    Hexadecimal dump
+    16进制转储
+
+    ASCII dump
+    ASCII字符转储
+
+    Fields
+    域
+
+    Values
+    值
+
+    Explanation
+    解释
+
+headers descriptions
+    constant signature
+    固定签名
+    offset of the PE Header
+    PE头部偏移
+
+    constant signature
+    固定签名
+    processor: ARM/MIPS/Intel/...
+    处理器：ARM/MIPS/Intel
+    number of sections
+    段数目
+    relative offset of the section table
+    段表的相对偏移
+    EXE/DLL/...
+    EXE/DLL/...
+
+    32 bits/64 bits
+    32位/64位
+    where execution starts
+    执行开始的位置
+    address where the file should be mapped in memory
+    文件映射到进内存中的地址
+    where sections should start in memory
+    内存中段对齐地址
+    where sections should start on file
+    文件中段对齐地址
+    required version of Windows
+    所需Windows系统的版本
+    total memory space required
+    所需内存总大小
+    total size of the headers
+    头部的总大小
+    driver/graphical/command line/...
+    驱动/GUI/命令行...
+    number of data directories
+    数据目录个数
+
+    RVA of the imports
+    导入的相对虚拟地址
+
+    Offset
+    偏移
+
+headers info
+     or later
+
+Sections table
+    Sections table
+    段表
+
+    physical size
+    实际大小
+
+    physical offset
+    实际偏移
+
+    For each section, a SizeofRawData sized block is read from the file at PointerToRawData offset.
+    对于每一个段，在文件偏移PointerToRawData处读取大小为SizeofRawData的块。
+    It will be loaded in memory at address ImageBase + VirtualAddress in a VirtualSize sized block, with specific characteristics.
+    这块数据会被加载到地址为ImageBase + VirtualAddress，大小为VirtualSize的内存块中, 并标记特定的characteristics.
+
+code
+    x86 assembly
+    x86 汇编
+
+    Equivalent C code
+    等价的C语言代码
+    
+imports
+    Imports structures
+    导入结构
+
+    Consequences
+    结果
+
+    descriptors
+    描述符
+
+    Hint,Name
+    Hint,名
+
+    after loading,
+    加载完成后，
+    0x402068 will point to kernel32.dll´s ExitProcess
+    0x402068地址处将指向kernel32.dll中ExitProcess函数
+    0x402070 will point to user32.dll´s MessageBoxA
+    0x402070地址处将指向user32.dll中的MessageBoxA函数
+
+    All addresses here are RVAs.
+    所有的地址都是相对虚拟地址。
+
+Strings
+    Strings
+    字符串
+
+block footer
+    This is the whole file, however, most PE files contain more elements. Explanations are simplified, for conciseness.
+    这是整个文件的结构，但是大部分PE文件包含更多的元素。为了简洁，解释写得比较简单。
+
+    version 1, <current date>
+    版本1，2013年6月23日
+
+Loading process
+    Loading process
+    加载过程
+
+    Headers
+    头部
+
+    the DOS Header is parsed
+    解析DOS头部
+    the PE Header is parsed
+    解析PE头部
+         (its offset is DOS Header´s e_lfanew)
+         （它的偏移值是DOS头部中的e_lfanew）
+    the Optional Header is parsed
+    解析可选头部
+         (it follows the PE Header)
+         （它在PE头部后面）
+
+    Sections table
+    段表
+    Sections table is parsed
+    解析段表
+        (it is located at: offset (OptionalHeader) + SizeOfOptionalHeader)
+        （它的位置：可选头的偏移 + SizeOfOptionalHeader）
+    it contains NumberOfSections elements
+    它包含NumberOfSections个元素
+    it is checked for validity with alignments:
+    它用对齐进行合法性检查：
+        FileAlignments and SectionAlignments
+
+    Mapping
+    映射
+    the file is mapped in memory according to:
+    文件被映射到内存中，依据
+        the ImageBase
+        ImageBase
+        the SizeOfHeaders
+        SizeOfHeaders
+        the Sections table
+        Sections table
+
+    Offset
+    偏移
+
+    Relative
+    相对
+    Virtual Address
+    虚拟地址
+
+    Imports
+    导入
+
+    DataDirectories are parsed
+    解析数据目录
+        they follow the OptionalHeader
+        它们在OptionalHeader后面
+        their number is NumOfRVAAndSizes
+        它们的数目是NumOfRVAAndSizes
+        imports are always #2
+        ??don't understand "#2" here?
+    Imports are parsed
+    解析导入
+       each descriptor specifies a DLLname
+       每一个描述符指定一个DLL名
+          this DLL is loaded in memory
+          DLL被加载进内存
+          IAT and INT are parsed simultaneously
+          IAT和INT被同步解析
+          for each API in INT
+          对INT中的每一个API
+             its address is written in the IAT entry
+             它的地址被写入IAT条目中
+
+    Hint,"API name"
+    Hint,"API名"
+
+    library.dll
+
+    API_Address:
+    API地址
+
+    Execution
+    执行
+
+    Code is called at the EntryPoint
+    代码在EntryPoint处被调用
+    the calls of the code go via the IAT to the APIs
+    通过IAT找到API实现代码中的调用
+
+Notes
+    Notes
+    注释
+
+    MZ HEADER aka DOS_HEADER
+    MZ头部也称为DOS头部
+    Starts with 'MZ' (initials of Mark Zbikowski MS-DOS developer)
+    以“MZ”开始（MS-DOS开发者Mark Zbikowski的缩写）
+
+    PE HEADER aka IMAGE_FILE_HEADERS / COFF file header
+    PE头部也称为IMAGE_FILE_HEADERS或COFF文件头
+    Starts with 'PE' (Portable Executable)
+    以“PE”开始(Portable Executable)
+
+    OPTIONAL HEADER aka IMAGE_OPTIONAL_HEADER
+    可选文件头也称为IMAGE_OPTIONAL_HEADER
+    Optional only for non-standard PEs but required for executables
+    对于非标准PE文件是可选的，但对于可执行文件是必须的
+
+    RVA Relative Virtual Address
+    RVA 相对虚拟地址
+    Address relative to ImageBase  (at ImageBase, RVA = 0)
+    相对ImageBase的地址(在ImageBase处，RVA = 0)
+    Almost all addresses of the headers are RVAs
+    头部中差不多所有地址都是相对虚拟地址
+    In code, addresses are not relative.
+    代码中，地址不是相对的。
+
+    INT Import Name Table
+    INT 导入名称表
+    Null-terminated list of pointers to Hint, Name structures
+    以Null结束的指针链表，指向Hint和名字结构
+    
+    IAT Import Address Table
+    IAT 导入地址表
+    Null-terminated list of pointers
+    以Null结束的指针链表
+    On file it is a copy of the INT
+    在文件中，它是INT的拷贝
+    After loading it points to the imported APIs
+    加载完成后，它指向导入的API
+    
+    HINT
+    Index in the exports table of a DLL to be imported
+    导入在DLL导出表中的索引
+    Not required but provides a speed-up by reducing look-up
+    不是必须的，但通过减少查找提供了加速
