@@ -19,6 +19,7 @@ title
     译者 童进
 
     download @
+    下载 @
 
 block title
     Dissected PE
@@ -29,7 +30,7 @@ file blocks
     头部
     
     technical details about the executable
-    可执行文件相关技术细节
+    可执行文件的技术细节
 
     sections
     段
@@ -59,7 +60,7 @@ file blocks
     数据目录
 
     pointers to extra structures (exports, imports,...)
-    指向附加的结构(导出，导入)
+    指向其它结构的指针(导出，导入)
 
     sections table
     段表
@@ -71,19 +72,19 @@ file blocks
     代码
 
     what is executed
-    什么被执行
+    被执行的
 
     imports
     导入
 
     link between the executable and (Windows) libraries
-    连接可执行文件与Windows库
+    可执行文件和Windows库之间的连接
 
     data
     数据
 
     information used by the code
-    代码所使用的信息
+    代码使用的信息
 
 big block headers
     Hexadecimal dump
@@ -123,7 +124,7 @@ headers descriptions
     where execution starts
     执行开始的位置
     address where the file should be mapped in memory
-    文件映射到进内存中的地址
+    文件映射到内存中的地址
     where sections should start in memory
     内存中段对齐地址
     where sections should start on file
@@ -147,6 +148,7 @@ headers descriptions
 
 headers info
      or later
+     或后续版本
 
 Sections table
     Sections table
@@ -165,7 +167,7 @@ Sections table
 
 code
     x86 assembly
-    x86 汇编
+    x86汇编
 
     Equivalent C code
     等价的C语言代码
@@ -181,14 +183,14 @@ imports
     描述符
 
     Hint,Name
-    Hint,名
+    HINT,名
 
     after loading,
     加载完成后，
     0x402068 will point to kernel32.dll´s ExitProcess
-    0x402068地址处将指向kernel32.dll中ExitProcess函数
+    0x402068内存处将指向kernel32.dll中ExitProcess函数
     0x402070 will point to user32.dll´s MessageBoxA
-    0x402070地址处将指向user32.dll中的MessageBoxA函数
+    0x402070内存处将指向user32.dll中MessageBoxA函数
 
     All addresses here are RVAs.
     所有的地址都是相对虚拟地址。
@@ -202,7 +204,7 @@ block footer
     这是整个文件的结构，但是大部分PE文件包含更多的元素。为了简洁，解释写得比较简单。
 
     version 1, <current date>
-    版本1，2013年6月23日
+    版本1，2013年6月24日
 
 Loading process
     Loading process
@@ -227,17 +229,18 @@ Loading process
     Sections table is parsed
     解析段表
         (it is located at: offset (OptionalHeader) + SizeOfOptionalHeader)
-        （它的位置：可选头的偏移 + SizeOfOptionalHeader）
+        （它的位置：可选头部的偏移 + SizeOfOptionalHeader）
     it contains NumberOfSections elements
     它包含NumberOfSections个元素
     it is checked for validity with alignments:
-    它用对齐进行合法性检查：
+    利用对齐进行合法性检查：
         FileAlignments and SectionAlignments
+        FileAlignments 和 SectionAlignments
 
     Mapping
     映射
     the file is mapped in memory according to:
-    文件被映射到内存中，依据
+    文件被映射到内存中，依据：
         the ImageBase
         ImageBase
         the SizeOfHeaders
@@ -259,11 +262,11 @@ Loading process
     DataDirectories are parsed
     解析数据目录
         they follow the OptionalHeader
-        它们在OptionalHeader后面
+        它们在可选头部后面
         their number is NumOfRVAAndSizes
         它们的数目是NumOfRVAAndSizes
         imports are always #2
-        ??don't understand "#2" here?
+        导入总是第二个
     Imports are parsed
     解析导入
        each descriptor specifies a DLLname
@@ -278,8 +281,9 @@ Loading process
              它的地址被写入IAT条目中
 
     Hint,"API name"
-    Hint,"API名"
+    HINT,"API名"
 
+    library.dll
     library.dll
 
     API_Address:
@@ -291,7 +295,7 @@ Loading process
     Code is called at the EntryPoint
     代码在EntryPoint处被调用
     the calls of the code go via the IAT to the APIs
-    通过IAT找到API实现代码中的调用
+    通过IAT找到API以实现代码中的调用
 
 Notes
     Notes
@@ -308,14 +312,14 @@ Notes
     以“PE”开始(Portable Executable)
 
     OPTIONAL HEADER aka IMAGE_OPTIONAL_HEADER
-    可选文件头也称为IMAGE_OPTIONAL_HEADER
+    可选头部也称为IMAGE_OPTIONAL_HEADER
     Optional only for non-standard PEs but required for executables
     对于非标准PE文件是可选的，但对于可执行文件是必须的
 
     RVA Relative Virtual Address
     RVA 相对虚拟地址
     Address relative to ImageBase  (at ImageBase, RVA = 0)
-    相对ImageBase的地址(在ImageBase处，RVA = 0)
+    相对ImageBase的地址  (在ImageBase处，RVA = 0)
     Almost all addresses of the headers are RVAs
     头部中差不多所有地址都是相对虚拟地址
     In code, addresses are not relative.
@@ -324,7 +328,7 @@ Notes
     INT Import Name Table
     INT 导入名称表
     Null-terminated list of pointers to Hint, Name structures
-    以Null结束的指针链表，指向Hint和名字结构
+    以Null结束的指针链表，指向HINT和名字结构
     
     IAT Import Address Table
     IAT 导入地址表
