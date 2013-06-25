@@ -42,13 +42,13 @@ file blocks
     DOS头部
 
     shows it's a binary
-    二进制形式
+    显示文件为二进制可执行文件（DOS:16位）
 
     PE header
-    PE头
+    PE头部
 
     shows it's a 'modern' binary
-    二进制形式
+    显示文件为新的二进制可执行文件（PE:32位）
 
     optional header
     可选头部
@@ -60,7 +60,7 @@ file blocks
     数据目录
 
     pointers to extra structures (exports, imports,...)
-    指向其它结构的指针(导出，导入)
+    指向附加结构（导出表，导入表，...）的指针
 
     sections table
     段表
@@ -69,19 +69,19 @@ file blocks
     定义文件如何加载到内存中
 
     code
-    代码
+    代码段
 
     what is executed
-    被执行的
+    被执行体
 
     imports
-    导入
+    导入表
 
     link between the executable and (Windows) libraries
     可执行文件和Windows库之间的连接
 
     data
-    数据
+    数据段
 
     information used by the code
     代码使用的信息
@@ -122,7 +122,7 @@ headers descriptions
     32 bits/64 bits
     32位/64位
     where execution starts
-    执行开始的位置
+    程序开始执行的入口地址
     address where the file should be mapped in memory
     文件映射到内存中的地址
     where sections should start in memory
@@ -141,7 +141,7 @@ headers descriptions
     数据目录个数
 
     RVA of the imports
-    导入的相对虚拟地址
+    导入表的相对虚拟地址
 
     Offset
     偏移
@@ -174,7 +174,7 @@ code
     
 imports
     Imports structures
-    导入结构
+    导入表结构
 
     Consequences
     结果
@@ -257,7 +257,7 @@ Loading process
     虚拟地址
 
     Imports
-    导入
+    导入表
 
     DataDirectories are parsed
     解析数据目录
@@ -266,9 +266,9 @@ Loading process
         their number is NumOfRVAAndSizes
         它们的数目是NumOfRVAAndSizes
         imports are always #2
-        导入总是第二个
+        导入表总是第二个
     Imports are parsed
-    解析导入
+    解析导入表
        each descriptor specifies a DLLname
        每一个描述符指定一个DLL名
           this DLL is loaded in memory
@@ -309,7 +309,7 @@ Notes
     PE HEADER aka IMAGE_FILE_HEADERS / COFF file header
     PE头部也称为IMAGE_FILE_HEADERS或COFF文件头
     Starts with 'PE' (Portable Executable)
-    以“PE”开始(Portable Executable)
+    以“PE”开始 (Portable Executable)
 
     OPTIONAL HEADER aka IMAGE_OPTIONAL_HEADER
     可选头部也称为IMAGE_OPTIONAL_HEADER
@@ -319,11 +319,11 @@ Notes
     RVA Relative Virtual Address
     RVA 相对虚拟地址
     Address relative to ImageBase  (at ImageBase, RVA = 0)
-    相对ImageBase的地址  (在ImageBase处，RVA = 0)
+    相对ImageBase的地址（在ImageBase处，RVA = 0）
     Almost all addresses of the headers are RVAs
     头部中差不多所有地址都是相对虚拟地址
     In code, addresses are not relative.
-    代码中，地址不是相对的。
+    在代码段中，地址不是相对的。
 
     INT Import Name Table
     INT 导入名称表
@@ -341,6 +341,6 @@ Notes
     
     HINT
     Index in the exports table of a DLL to be imported
-    导入在DLL导出表中的索引
+    导入函数在DLL导出表中的索引
     Not required but provides a speed-up by reducing look-up
     不是必须的，但通过减少查找提供了加速
