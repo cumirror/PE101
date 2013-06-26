@@ -183,7 +183,7 @@ imports
     描述符
 
     Hint,Name
-    HINT,名
+    HINT,函数名
 
     after loading,
     加载完成后，
@@ -270,9 +270,9 @@ Loading process
     Imports are parsed
     解析导入表
        each descriptor specifies a DLLname
-       每一个描述符指定一个DLL名
+       每个描述符会指定一个DLL名
           this DLL is loaded in memory
-          DLL被加载进内存
+          相应的DLL被加载进内存
           IAT and INT are parsed simultaneously
           IAT和INT被同步解析
           for each API in INT
@@ -328,7 +328,7 @@ Notes
     INT Import Name Table
     INT 导入名称表
     Null-terminated list of pointers to Hint, Name structures
-    以Null结束的指针链表，指向HINT和名字结构
+    以Null结束的指针链表，指向包含HINT和函数名的结构体
     
     IAT Import Address Table
     IAT 导入地址表
