@@ -42,13 +42,13 @@ file blocks
     DOS头部
 
     shows it's a binary
-    显示文件为二进制可执行文件（DOS:16位）
+    显示文件为二进制可执行文件
 
     PE header
     PE头部
 
     shows it's a 'modern' binary
-    显示文件为新的二进制可执行文件（PE:32位）
+    显示文件为新的二进制可执行文件
 
     optional header
     可选头部
@@ -124,7 +124,7 @@ headers descriptions
     where execution starts
     程序开始执行的入口地址
     address where the file should be mapped in memory
-    文件映射到内存中的地址
+    文件映射到内存中的基地址
     where sections should start in memory
     内存中段对齐地址
     where sections should start on file
